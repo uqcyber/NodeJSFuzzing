@@ -1,3 +1,6 @@
+# Copyright (c) 2020, 2020, Oracle and/or its affiliates.
+# Contributor: Trong Nhan Mai
+
 FROM node:12-alpine
 ENV WORKDIR /usr/src/app/
 WORKDIR $WORKDIR
