@@ -4,6 +4,25 @@ This document describes how to get applications to work in docket containers for
 ## Presequisites
 Docker and docker-compose
 
+## Putting docker image on repo (in case I forget)
+First create a personal token on github. Then run docker login.
+
+```
+docker login docker.pkg.github.com --username <your_username> -p <your_token>
+```
+
+Build your image and run docker tag (all names are lowercase)
+```
+$ docker build -t <image_name>:<tag> .
+
+$ docker tag <name>:<tag> docker.pkg.github.com/<user_name>/<repo_name>/<image_name>:<tag>
+```
+
+Push the docker image to repo
+```
+docker push docker.pkg.github.com/<user_name>/<repo_name>/<image_name>:<tag>
+```
+
 ## Setup OWASP ZAP
 
 Have an docker image available. \
