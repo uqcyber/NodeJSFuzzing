@@ -63,7 +63,10 @@ node test/e2e/server.js --env default --notest
 
 To run it inside a Docker container. 
 
-1. Using the existed image: TBD
+1. Using the existed image on github registry: `docker.pkg.github.com/skyworld42/fuzzing_nodejs/keystone-docker:v1`
+    
+    - Run the images (with the command above) inside a docker network and connect ZAP to it. Don't need to use docker-compose.
+
 2. Build docker image on local machine
 
     - Copy [server.js](./keystone_docker/server.js) to `<keystone 4.0.0 directory>/test/e2e/`

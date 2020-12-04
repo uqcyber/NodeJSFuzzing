@@ -14,7 +14,7 @@ process.env.KNE_EXCLUDE_TEST_PATHS = 'test/e2e/adminUI/tests/group006Fields/comm
 
 // determine the mongo uri and database name
 var dbName = '/e2e' + (process.env.KEYSTONEJS_PORT || 3000);
-var mongoUri = process.env.MONGO_URI || ('mongodb://' + (process.env.KEYSTONEJS_HOST || 'localhost')) + dbName;
+var mongoUri = (process.env.MONGO_URI || ('mongodb://' + (process.env.KEYSTONEJS_HOST || 'localhost'))) + dbName;
 
 // Function that drops the test database before starting testing
 function dropTestDatabase(done) {
