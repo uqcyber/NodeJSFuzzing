@@ -1,0 +1,26 @@
+{
+  "name": "express-instrument-app",
+  "version": "1.0.0",
+  "description": "Run an express app with instrumentation enabled",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard"
+  },
+  "bin": {
+    "express-instrument": "./bin/run"
+  },
+  "keywords": [],
+  "author": "Max Schlueter",
+  "license": "ISC",
+  "dependencies": {
+    "debug": "^4.1.1",
+    "istanbul-middleware": "git+ssh://git@github.com:skyworld42/istanbul-middleware.git",
+    "moment": "^2.24.0",
+    "require-in-the-middle": "^3.1.0",
+    "signal-exit": "^3.0.2",
+    "yargs": "^12.0.5"
+  },
+  "devDependencies": {
+    "standard": "^12.0.1"
+  }
+}

@@ -1,0 +1,134 @@
+#!/usr/bin/env node
+'use strict'
+
+const path = require('path')
+
+const argv = require('yargs')
+  .command('$0 [options..] <app>', 'Run express app with instrumentation', yargs => {
+    yargs
+      .positional('app', {
+        describe: 'Path to the server start script',
+        normalize: true
+      })
+  })
+  .option('projectDir', {
+    alias: 'pdir',
+    describe: 'Project directory of the app',
+    type: 'string',
+    default: process.cwd(),
+    normalize: true
+  })
+  .option('logDir', {
+    alias: 'ldir',
+    describe: 'Directory that log files will be written to',
+    type: 'string',
+    normalize: true
+  })
+  .options('logFile', {
+    alias: 'lfile',
+    describe: 'Path to the log file',
+    type: 'string',
+    normalize: true
+  })
+  .check((argv) => {
+    if ((argv.logDir && argv.logFile) || (!argv.logDir && !argv.logFile)) {
+      throw new Error('Please specify exactly one of the logDir or logFile options')
+    }
+    return true;
+  })
+  .option('enable-generator', {
+    alias: 'eg',
+    describe: 'Enable spec generation for the app',
+    type: 'boolean',
+  })
+  .option('timeout', {
+    describe: 'Timeout in ms after which endpoints will be listed',
+    default: 1000,
+    type: 'number'
+  })
+  .option('save-spec', {
+    alias: 'ss',
+    describe: 'Save spec to file on process exit',
+    implies: 'enable-generator',
+    type: 'boolean'
+  })
+  .option('specFile', {
+    alias: 'sfile',
+    describe: 'File that spec will be written to',
+    default: path.resolve(process.cwd(), 'spec.json'),
+    type: 'string'
+  })
+  .option('enable-coverage', {
+    alias: 'ec',
+    describe: 'Enable coverage for the app',
+    type: 'boolean',
+  })
+  .option('save-coverage', {
+    alias: 'sc',
+    describe: 'Save coverage object to file on process exit',
+    implies: 'enable-coverage',
+    type: 'boolean'
+  })
+  .option('save-crawled', {
+    describe: 'Save number of times a given endpoint has been hit to file on process exit',
+    implies: 'enable-generator',
+    type: 'boolean'
+  })
+  .option('crawledFile', {
+    describe: 'File that crawled endpoints will be written to',
+    default: path.resolve(process.cwd(), 'crawled.json'),
+    type: 'string'
+  })
+  .option('restore-coverage', {
+    alias: 'rc',
+    describe: 'Restore coverage object from file',
+    implies: 'enable-coverage',
+    type: 'boolean'
+  })
+  .option('coverageFile', {
+    alias: 'cfile',
+    describe: 'File that coverage object will be saved/restored from',
+    default: path.resolve(process.cwd(), 'coverage.json'),
+    type: 'string'
+  })
+  .option('instrumentDir', {
+    alias: 'idir',
+    describe: 'Directory under which files will be covered (resolved from projectDir)',
+    type: 'string',
+    default: '.',
+    normalize: true
+  })
+  .option('babel', {
+    describe: 'Enable Babel transpiler (e.g. to resolve Istanbul compatibility issues)',
+    implies: 'enable-coverage',
+    type: 'boolean'
+  })
+  .option('enable-taint', {
+    describe: 'Collect and report taint flows from Affogato in response headers',
+    type: 'boolean'
+  })
+  .wrap(null)
+  .argv
+
+const options = {
+  projectDir: argv.projectDir,
+  logDir: argv.logDir,
+  logFile: argv.logFile,
+  instrumentDir: path.resolve(argv.projectDir, argv.instrumentDir),
+  enableGenerator: argv['enable-generator'],
+  saveSpec: argv['save-spec'],
+  saveCrawled: argv['save-crawled'],
+  specFile: argv.specFile,
+  crawledFile: argv.crawledFile,
+  enableCoverage: argv['enable-coverage'],
+  saveCoverage: argv['save-coverage'],
+  restoreCoverage: argv['restore-coverage'],
+  coverageFile: argv.coverageFile,
+  babel: argv.babel,
+  enableTaint: argv['enable-taint'],
+  'express-oas-generator': {
+    timeout: argv.timeout,
+  }
+}
+
+require('..')(argv.app, options)
