@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   web:
-    image: nodegoat_coverage:v1
+    build: .
     environment:
       NODE_ENV:
       MONGODB_URI: mongodb://mongo:27017/nodegoat

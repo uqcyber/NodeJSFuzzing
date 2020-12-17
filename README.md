@@ -48,6 +48,18 @@ Then on your browser, head to http://localhost:8080/zap
 ### 1. NodeGoat 1.3.0
 Make sure to clone https://github.com/OWASP/NodeGoat/tree/v1.3
 
+Setup coverage plugin for NodeGoat:
+```
+[NodeGoat]$ cp path/to/express-instrument-app . 
+[NodeGoat]$ cd express-instrument-app
+[express-instrument-app]$ npm install .
+```
+
+On first time start up:
+```
+[NodeGoat]$ docker-compose build
+```
+
 Start up using docker-compose:
 ```
 [NodeGoat]$ docker-compose up
