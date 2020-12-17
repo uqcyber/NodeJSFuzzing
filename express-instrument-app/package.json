@@ -14,7 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "debug": "^4.1.1",
-    "istanbul-middleware": "git+ssh://git@github.com:skyworld42/istanbul-middleware.git",
+    "istanbul-middleware": "git+http://git@github.com:skyworld42/istanbul-middleware.git",
     "moment": "^2.24.0",
     "require-in-the-middle": "^3.1.0",
     "signal-exit": "^3.0.2",
