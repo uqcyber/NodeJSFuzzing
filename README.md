@@ -100,7 +100,7 @@ https://github.com/bkimminich/juice-shop/tree/v8.3.0
 
 Existed docker hub repo: `bkimminich/juice-shop`
 ```
-sudo docker run --net my_network -d -p 3000:3000 bkimminich/juice-shop npm start
+sudo docker run --net my_network -d -p 3000:3000 bkimminich/juice-shop:v8.3.0 npm start
 ```
 
 ### 5. Mongo-express 0.51.0 
