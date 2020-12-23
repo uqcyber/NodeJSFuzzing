@@ -113,6 +113,11 @@ Solution taken from [stackoverflow](https://stackoverflow.com/questions/44139279
 ### 4. Juice-Shop 8.3.0
 Source code: https://github.com/bkimminich/juice-shop/tree/v8.3.0
 
+Run the authorization script to get the authorization token:
+```
+replayer/bin/replay --log juice-shop/loginSpec.js --config juice-shop/config.js
+```
+
 Existed docker hub repo: `bkimminich/juice-shop:v8.3.0`
 Run without code coverage plugin:
 ```
