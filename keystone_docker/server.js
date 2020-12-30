@@ -159,7 +159,7 @@ function runKeystone(cb) {
 
 // Function that bootstraps the e2e test service
 function start() {
-	var runTests = process.argv.indexOf('--notest') === -1;
+	var runTests = process.argv.indexOf('--notest') === 1;
 	var dropDB = process.argv.indexOf('--nodrop') === -1;
 
 	async.series([

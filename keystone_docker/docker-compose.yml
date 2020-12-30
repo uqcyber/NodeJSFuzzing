@@ -12,13 +12,14 @@ services:
       - 27017
 
   web:
-    build: .
+    image:
+       keystone:v1
     restart: always
     depends_on:
       - mongo
     environment:
       MONGO_URI: mongodb://mongo:27017
       KEYSTONEJS_HOST: 0.0.0.0
-    command: sh -c "sleep 5 && node test/e2e/server.js --env default --notest"
+    command: sh -c "sleep 5 && node ./node_modules/express-instrument-app/bin/run --projectDir ./test/e2e/ --logFile log.file --enable-coverage server.js"
     ports:
       - "3000:3000"
