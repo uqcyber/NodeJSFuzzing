@@ -13,7 +13,7 @@ services:
 
   web:
     image:
-       keystone:v1
+       keystone_coverage:v1
     restart: always
     depends_on:
       - mongo

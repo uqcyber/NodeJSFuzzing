@@ -90,18 +90,21 @@ node test/e2e/server.js --env default --notest
 
 To run it inside a Docker container. 
 
-1. Using the existed image on github registry: `docker.pkg.github.com/skyworld42/fuzzing_nodejs/keystone-docker:v1`
+1. Using the existed image on github registry: `docker.pkg.github.com/skyworld42/nodejsfuzzing/keystone_coverage:v1`
     
-    - Run the images (with the command above) inside a docker network and connect ZAP to it. Don't need to use docker-compose.
+    - Update the `image` field in docker-compose.yml to the target Docker image.
+    - Run `docker-compose up`
 
 2. Build docker image on local machine
 
-    - Copy [server.js](./keystone_docker/server.js) to `<keystone 4.0.0 directory>/test/e2e/`
-    - Copy docker-compose.yml and Dockerfile to `<keystone 4.0.0 directory>`
-    - Run:
+    - Copy `server.js` to `<keystone 4.0.0 directory>/test/e2e/`
+    - Copy `docker-compose.yml` and `Dockerfile` to `<keystone 4.0.0 directory>`
+    - Build the docker image:
     ```
-    docker-compose up
+    docker build --tag <name>:<version> .
     ```
+    - Update the `image` field in `docker-compose.yml` with `<name>:<version>`
+    - Run `docker-compose up`
 
 ### 3. Apostrophe boilerplate
 https://github.com/apostrophecms/apostrophe-boilerplate
