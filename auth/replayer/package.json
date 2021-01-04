@@ -7,9 +7,11 @@
     "replayer": "./bin/replay"
   },
   "dependencies": {
+    "cookie": "^0.4.1",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
     "type-is": "^1.6.16",
+    "update": "^0.7.4",
     "yargs": "^13.2.4"
   }
 }

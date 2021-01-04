@@ -1,10 +1,14 @@
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
-const cookie = require('cookie');function dump_auth_cookie(options) {
+const cookie = require('cookie');
+
+function dump_auth_cookie(options) {
     const cookies = cookie.parse(options.jar.getCookieString(options.baseUrl));    // The following path is used by the restfuzz command of test-goat.py
-    fs.writeFileSync(path.join(os.tmpdir(), 'nodegoat_auth_cookie.txt'), `connect.sid=${cookies['connect.sid']}`);
-}module.exports = {
+    fs.writeFileSync(path.join("./", 'nodegoat_auth_cookie.txt'), `connect.sid=${cookies['connect.sid']}`);
+}
+
+module.exports = {
     // Fetch and dump the cookie after successful login
     // In CI, probing the app will trigger a redirect and subsequent requests will be successful
     response: (resp, options, ctx) => {
