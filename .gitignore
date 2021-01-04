@@ -17,4 +17,4 @@ node_modules/
 .env.test
 
 .vscode/
-**auth_tokens/
+**/auth_tokens
