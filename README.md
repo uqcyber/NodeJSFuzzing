@@ -56,22 +56,13 @@ If you simply want to run without code coverage plugin, within the cloned repo, 
 If you want to run with code coverage plugin, there are 2 options:
 1. Run with the available Docker image:
 - Get the image [here](https://github.com/skyworld42/NodeJSFuzzing/packages/547575)
-- In `nodegoat_docker/docker-compose.yml`, replace `"build: ."` with `"image: docker.pkg.github.com/skyworld42/nodejsfuzzing/nodegoat_coverage:v1"` and run:
+- In `nodegoat_docker/docker-compose.yml`, replace `"nodegoat_coverage:v1"` with the image name and run:
 ```
 [nodegoat_docker]$ docker-compose up
 ``` 
-2. Build the Docker image by your own:
-- Put the `express-instrument-app` within the NodeGoat repo directory. Make sure that there is NO `node_modules` within `express-instrument-app`.
-- Add to the `dependencies` of NodeGoat's `package.json` to point to the `express-instrument-app` folder:
-```
-...
-    dependencies: {
-        "express-instrument-app": "file:./express-instrument-app",
-        ...
-    }
-...
-```
-- Replace the `Dockerfile` and `docker-compose.yml` in NodeGoat directory by the ones in `nodegoat_docker/` 
+2. Build the Docker image:
+- Put the `express-instrument-app` folder within the NodeGoat repo directory. Make sure that there is NO `node_modules` within `express-instrument-app`.
+- Replace the files in NodeGoat source code directory with the ones in `nodegoat_docker/` 
 - Build the Docker image by:
 ```
 [NodeGoat]$ docker build --tag <tag_name>:<version> . 
@@ -83,63 +74,46 @@ If you want to run with code coverage plugin, there are 2 options:
 ### 2. Keystone 4.0.0
 https://github.com/keystonejs/keystone-classic/tree/v4.0.0
 
-There is a test server that pre-populates the application. We're launching it with the following command: 
+Running without code coverage plugin: 
 ```
 node test/e2e/server.js --env default --notest
 ```
 
 To run it inside a Docker container. 
 
-1. Using the existed image on github registry: `docker.pkg.github.com/skyworld42/nodejsfuzzing/keystone_coverage:v1`
+1. Using the existed image [here](https://github.com/skyworld42/NodeJSFuzzing/packages/555699)
     
     - Update the `image` field in docker-compose.yml to the target Docker image.
     - Run `docker-compose up`
 
 2. Build docker image on local machine
-
-    - Copy `server.js` to `<keystone 4.0.0 directory>/test/e2e/`
-    - Copy `docker-compose.yml` and `Dockerfile` to `<keystone 4.0.0 directory>`
+    - Replace `server.js` in `<keystone 4.0.0 directory>/test/e2e/` with the one in `keystone_docker/`.
+    - Replace `docker-compose.yml`, `Dockerfile` and `package*.json` in `<keystone 4.0.0 directory>` with the ones in `keystone_docker/`
     - Build the docker image:
     ```
-    docker build --tag <name>:<version> .
+    [keystone-classic]$ docker build --tag <name>:<version> .
     ```
     - Update the `image` field in `docker-compose.yml` with `<name>:<version>`
     - Run `docker-compose up`
 
-### 3. Apostrophe boilerplate
-https://github.com/apostrophecms/apostrophe-boilerplate
-
-It also uses docker-compose -> similar to NodeGoat.Note that this also use docker volumes. When tested on Oracle Linux Server 7.9, there is a permission error because of selinux enabled. Overcome by adding `:z` flag after each volume in `docker-compoes.yml`
-
-Solution taken from [stackoverflow](https://stackoverflow.com/questions/44139279/docker-mounting-volume-with-permission-denied)
-
-### 4. Juice-Shop 8.3.0
-Source code: https://github.com/bkimminich/juice-shop/tree/v8.3.0
-
-Run the authorization script to get the authorization token:
-```
-replayer/bin/replay --log juice-shop/loginSpec.js --config juice-shop/config.js
-```
+### 3. Juice-Shop 8.3.0
+https://github.com/bkimminich/juice-shop/tree/v8.3.0
 
 Existed docker hub repo: `bkimminich/juice-shop:v8.3.0`
 Run without code coverage plugin:
 ```
 sudo docker run --net my_network -d -p 3000:3000 bkimminich/juice-shop:v8.3.0 npm start
 ```
-If you want code-coverage plugin, again there are 2 options:
+Run in side Docker container:
 1. Run with the available Docker image:
 - Access the image [here](https://github.com/skyworld42/NodeJSFuzzing/packages/547578)
+- Run the Docker image with code coverage enable:
+```
+sudo docker run --name juice -p 3000:3000 <name>:<version> node ./express-instrument-app/bin/run --projectDir ./ --logFile log.txt --enable-coverage --babel app.js
+```
 2. Build your own Docker image:
 - Put the `express-instrument-app` within the Juice-shop repo directory. Make sure that there is NO `node_modules` within `express-instrument-app`.
-- Add to the `dependencies` of Juice-shop's `package.json` to point to the `express-instrument-app` folder:
-```
-...
-    dependencies: {
-        "express-instrument-app": "file:./express-instrument-app",
-        ...
-    }
-...
-```
+- Replace `package.json` and `Dockerfile` in the Juice-Shop directory with the one in this repo
 - Build the Docker image:
 ```
 [Juice-shop]$ docker build --tag <tag_name>:<version> .
@@ -148,7 +122,7 @@ If you want code-coverage plugin, again there are 2 options:
 ```
 [Juice-shop]$ docker run --name juice -p 3000:3000 <tag_name>:<version> node ./express-instrument-app/bin/run --projectDir ./ --logFile log.txt --enable-coverage --babel app.js
 ```
-### 5. Mongo-express 0.51.0 
+### 4. Mongo-express 0.51.0 
 https://github.com/mongo-express/mongo-express/tree/v0.51.0
 
 Put the [docker-compose.yml](./mongo-express_docker) file into mongo-express directory. Then run:
@@ -156,3 +130,10 @@ Put the [docker-compose.yml](./mongo-express_docker) file into mongo-express dir
 docker-compose up
 ```
 To start up the app with mongodb docker container.
+
+### 5. Apostrophe boilerplate
+https://github.com/apostrophecms/apostrophe-boilerplate
+
+It also uses docker-compose -> similar to NodeGoat.Note that this also use docker volumes. When tested on Oracle Linux Server 7.9, there is a permission error because of selinux enabled. Overcome by adding `:z` flag after each volume in `docker-compoes.yml`
+
+Solution taken from [stackoverflow](https://stackoverflow.com/questions/44139279/docker-mounting-volume-with-permission-denied)
