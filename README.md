@@ -126,11 +126,8 @@ sudo docker run --name juice -p 3000:3000 <name>:<version> node ./express-instru
 ### 4. Mongo-express 0.51.0 
 https://github.com/mongo-express/mongo-express/tree/v0.51.0
 
-Put the [docker-compose.yml](./mongo-express_docker) file into mongo-express directory. Then run:
-```
-docker-compose up
-```
-To start up the app with mongodb docker container.
+Get the existing image [here](https://github.com/skyworld42/NodeJSFuzzing/packages/563338)
+Can use the docker-compose file in this repo to run it
 
 ### 5. Apostrophe boilerplate
 https://github.com/apostrophecms/apostrophe-boilerplate
@@ -138,3 +135,8 @@ https://github.com/apostrophecms/apostrophe-boilerplate
 It also uses docker-compose -> similar to NodeGoat. Note that this also use docker volumes. When tested on Oracle Linux Server 7.9, there is a permission error because of selinux enabled. Overcome by adding `:z` flag after each volume in `docker-compoes.yml`
 
 Solution taken from [stackoverflow](https://stackoverflow.com/questions/44139279/docker-mounting-volume-with-permission-denied)
+
+Get the existing image [here](docker pull docker.pkg.github.com/skyworld42/nodejsfuzzing/apostrophe_boilerplate:v1)
+Can use the docker-compose file in this repo to run it
+
+Note: code coverage plugin is not available in mongo-exress and apostrophe boilerplate at the moment.
