@@ -1,6 +1,3 @@
-# Copyright (c) 2020, 2020, Oracle and/or its affiliates.
-# Contributor: Trong Nhan Mai
-
 version: '3.1'
 
 services:
@@ -13,10 +10,14 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
 
   web:
-    build: .
+    image:
+      mongo_express_coverage:v1
     restart: always
     ports:
       - 8081:8081
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
+    command: 
+      # sh -c "sleep 5 && node ./node_modules/express-instrument-app/bin/run --projectDir . --logFile logFile --enable-coverage app.js"
+      sh -c "npm start"
