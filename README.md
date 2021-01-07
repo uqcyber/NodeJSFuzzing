@@ -87,6 +87,7 @@ To run it inside a Docker container.
     - Run `docker-compose up`
 
 2. Build docker image on local machine
+    - Put the `express-instrument-app` folder within the NodeGoat repo directory. Make sure that there is NO `node_modules` within `express-instrument-app`.
     - Replace `server.js` in `<keystone 4.0.0 directory>/test/e2e/` with the one in `keystone_docker/`.
     - Replace `docker-compose.yml`, `Dockerfile` and `package*.json` in `<keystone 4.0.0 directory>` with the ones in `keystone_docker/`
     - Build the docker image:
@@ -134,6 +135,6 @@ To start up the app with mongodb docker container.
 ### 5. Apostrophe boilerplate
 https://github.com/apostrophecms/apostrophe-boilerplate
 
-It also uses docker-compose -> similar to NodeGoat.Note that this also use docker volumes. When tested on Oracle Linux Server 7.9, there is a permission error because of selinux enabled. Overcome by adding `:z` flag after each volume in `docker-compoes.yml`
+It also uses docker-compose -> similar to NodeGoat. Note that this also use docker volumes. When tested on Oracle Linux Server 7.9, there is a permission error because of selinux enabled. Overcome by adding `:z` flag after each volume in `docker-compoes.yml`
 
 Solution taken from [stackoverflow](https://stackoverflow.com/questions/44139279/docker-mounting-volume-with-permission-denied)
