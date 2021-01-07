@@ -55,7 +55,7 @@ If you simply want to run without code coverage plugin, within the cloned repo, 
 ```
 If you want to run with code coverage plugin, there are 2 options:
 1. Run with the available Docker image:
-- Get the image [here](https://github.com/skyworld42/NodeJSFuzzing/packages/547575)
+- Get the image [here](https://github.com/skyworld42/NodeJSFuzzing/packages/563367)
 - In `nodegoat_docker/docker-compose.yml`, replace `"nodegoat_coverage:v1"` with the image name and run:
 ```
 [nodegoat_docker]$ docker-compose up
@@ -81,7 +81,7 @@ node test/e2e/server.js --env default --notest
 
 To run it inside a Docker container. 
 
-1. Using the existed image [here](https://github.com/skyworld42/NodeJSFuzzing/packages/555699)
+1. Using the existed image [here](https://github.com/skyworld42/NodeJSFuzzing/packages/563401)
     
     - Update the `image` field in docker-compose.yml to the target Docker image.
     - Run `docker-compose up`
@@ -107,7 +107,7 @@ sudo docker run --net my_network -d -p 3000:3000 bkimminich/juice-shop:v8.3.0 np
 ```
 Run in side Docker container:
 1. Run with the available Docker image:
-- Access the image [here](https://github.com/skyworld42/NodeJSFuzzing/packages/547578)
+- Access the image [here](https://github.com/skyworld42/NodeJSFuzzing/packages/563399)
 - Run the Docker image with code coverage enable:
 ```
 sudo docker run --name juice -p 3000:3000 <name>:<version> node ./express-instrument-app/bin/run --projectDir ./ --logFile log.txt --enable-coverage --babel app.js
@@ -136,7 +136,7 @@ It also uses docker-compose -> similar to NodeGoat. Note that this also use dock
 
 Solution taken from [stackoverflow](https://stackoverflow.com/questions/44139279/docker-mounting-volume-with-permission-denied)
 
-Get the existing image [here](docker pull docker.pkg.github.com/skyworld42/nodejsfuzzing/apostrophe_boilerplate:v1)
+Get the existing image [here](https://github.com/skyworld42/NodeJSFuzzing/packages/563355)
 Can use the docker-compose file in this repo to run it
 
 Note: code coverage plugin is not available in mongo-exress and apostrophe boilerplate at the moment.
