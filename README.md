@@ -137,6 +137,11 @@ It also uses docker-compose -> similar to NodeGoat. Note that this also use dock
 Solution taken from [stackoverflow](https://stackoverflow.com/questions/44139279/docker-mounting-volume-with-permission-denied)
 
 Get the existing image [here](https://github.com/skyworld42/NodeJSFuzzing/packages/563355)
-Can use the docker-compose file in this repo to run it
+Can use the docker-compose file in this repo to run it. 
+After the it starts up, we need to add an admin account. We do that by executing an Apostrophe command line task inside the container:
+```
+docker-compose exec apostrophe node app apostrophe-users:add admin admin
+``` 
+The command line task will add the user `admin` (first parameter) to the group `admin` (second parameter). After that you need to enter the password for this account. Instructions taken from [here](https://github.com/apostrophecms/apostrophe-boilerplate#getting-started-with-docker)
 
 Note: code coverage plugin is not available in mongo-exress and apostrophe boilerplate at the moment.
