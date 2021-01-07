@@ -1,12 +1,13 @@
-version: "3.7"
+version: "2.0"
 
 services:
   web:
-    build: .
+    image: 
+      nodegoat_coverage:v1
     environment:
       NODE_ENV:
       MONGODB_URI: mongodb://mongo:27017/nodegoat
-    command: sh -c "until nc -z -w 2 mongo 27017 && echo 'mongo is ready for connections' && node artifacts/db-reset.js && node ./node_modules/express-instrument-app/bin/run --projectDir ./ --logFile log.file --enable-coverage server.js; do sleep 2; done"
+    command: sh -c "sleep 5 && node artifacts/db-reset.js && node ./node_modules/express-instrument-app/bin/run --projectDir ./ --logFile log.file --enable-coverage server.js"
     ports:
       - "4000:4000"
 
