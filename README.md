@@ -2,7 +2,11 @@
 This document describes how to get applications to work in docket containers for OWASP ZAP docker container to interact with.
 
 ## Presequisites
-Docker and docker-compose
+Testing on :
+- Docker version 18.09.1-ol, build b2a1f2a
+- docker-compose version 1.27.4, build 40524192
+
+For the docker-compose version support, please see [here](https://docs.docker.com/compose/compose-file/compose-versioning/#version-2)
 
 ## Putting docker image on repo (in case I forget)
 First create a personal token on github. Then run docker login.
