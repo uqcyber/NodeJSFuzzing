@@ -4,7 +4,7 @@ services:
     container_name: apostrophe
     restart: always
     image:
-      apostrophe_boilerplate:v1
+      docker.pkg.github.com/skyworld42/nodejsfuzzing/apostrophe_boilerplate:v1
     ports:
       - "3000:3000"
     links:

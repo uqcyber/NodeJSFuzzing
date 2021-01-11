@@ -13,7 +13,7 @@ services:
 
   web:
     image:
-       keystone_coverage:v1
+      docker.pkg.github.com/skyworld42/nodejsfuzzing/keystone:v1
     restart: always
     depends_on:
       - mongo
