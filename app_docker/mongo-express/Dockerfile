@@ -1,3 +1,6 @@
+# Copyright (c) 2020, 2021, Oracle and/or its affiliates.
+# Contributor: Trong Nhan Mai
+
 FROM node:12-slim
 
 # grab tini for signal processing and zombie killing

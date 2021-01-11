@@ -1,3 +1,7 @@
+#### Copyright (c) 2020, 2021, Oracle and/or its affiliates.
+#### Contributor: Trong Nhan Mai
+---
+
 **How to use the authentication script**
 
 ```

@@ -1,3 +1,6 @@
+// Copyright (c) 2020, 2021, Oracle and/or its affiliates.
+// Contributor: Trong Nhan Mai
+
 var async = require('async');
 var keystone = require('../..');
 var ReactEngine = require('react-engine');

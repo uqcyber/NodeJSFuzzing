@@ -1,3 +1,6 @@
+# Copyright (c) 2020, 2021, Oracle and/or its affiliates.
+# Contributor: Trong Nhan Mai
+
 FROM node:10
 ENV WORKDIR /usr/src/app/
 WORKDIR $WORKDIR
