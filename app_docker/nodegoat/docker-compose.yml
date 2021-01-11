@@ -1,0 +1,18 @@
+version: "2.0"
+
+services:
+  web:
+    image: 
+      docker.pkg.github.com/skyworld42/nodejsfuzzing/nodegoat:v1
+    environment:
+      NODE_ENV:
+      MONGODB_URI: mongodb://mongo:27017/nodegoat
+    command: sh -c "sleep 5 && node artifacts/db-reset.js && node ./node_modules/express-instrument-app/bin/run --projectDir ./ --logFile log.file --enable-coverage server.js"
+    ports:
+      - "4000:4000"
+
+  mongo:
+    image: mongo:latest
+    user: mongodb
+    expose:
+      - 27017

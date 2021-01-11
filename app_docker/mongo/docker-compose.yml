@@ -1,0 +1,23 @@
+version: '3.1'
+
+services:
+
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+  web:
+    image:
+      docker.pkg.github.com/skyworld42/nodejsfuzzing/mongo_express:v1
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+    command: 
+      # sh -c "sleep 5 && node ./node_modules/express-instrument-app/bin/run --projectDir . --logFile logFile --enable-coverage app.js"
+      sh -c "npm start"
