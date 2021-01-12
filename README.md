@@ -47,7 +47,7 @@ Docker-compose provides a quick and easy way to startup the applications.
 3. Docker-compose will handle the pulling and running those applications
 4. Then you can access the application via browser on localhost. (Please see `README.md` in `app_docker` for more information).
 
-*For apostrophe boilerplate only*:
+*For apostrophe-boilerplate only*:
 After the application has been started, we need to add an admin account. We do that by executing this command in the same directory with the `docker-compose.yml` file used:
 ```
 $ docker-compose exec apostrophe node app apostrophe-users:add admin admin
