@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 'use strict'
 
+// Copyright (c) 2019, 2021, Oracle and/or its affiliates.
+
 const path = require('path')
 
 const argv = require('yargs')

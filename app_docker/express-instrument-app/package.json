@@ -11,7 +11,7 @@
   },
   "keywords": [],
   "author": "Max Schlueter",
-  "license": "ISC",
+  "license": "UPL 1.0",
   "dependencies": {
     "debug": "^4.1.1",
     "istanbul-middleware": "github:skyworld42/istanbul-middleware#master",

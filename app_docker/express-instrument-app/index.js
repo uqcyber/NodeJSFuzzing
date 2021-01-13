@@ -1,3 +1,5 @@
+// Copyright (c) 2019, 2021, Oracle and/or its affiliates.
+
 const fs = require('fs')
 const path = require('path')
 const Hook = require('require-in-the-middle')
