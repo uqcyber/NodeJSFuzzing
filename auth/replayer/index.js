@@ -1,3 +1,5 @@
+// Copyright (c) 2019, 2021, Oracle and/or its affiliates.
+
 // Disable the proxy...
 process.env['http_proxy'] = '';
 process.env['https_proxy'] = '';
@@ -32,6 +34,7 @@ async function request(req, ctx, opts) {
         headers: JSON.parse(JSON.stringify(req.meta.req.headers)),
         followRedirect: false,
         gzip: true, //This is optional
+        storeLocation: opts.storeLocation
     }
     
     // Having an undefined body breaks GET requests.

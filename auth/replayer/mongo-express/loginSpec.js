@@ -1,3 +1,5 @@
+// Copyright (c) 2019, 2021, Oracle and/or its affiliates.
+
 const headers = {
     Host: 'localhost:8081',
     'Cache-Control': 'no-cache',

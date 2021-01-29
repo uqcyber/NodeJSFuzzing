@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+// Copyright (c) 2019, 2021, Oracle and/or its affiliates.
+
 const path = require('path');
 
 // Command-line parser
@@ -39,6 +41,11 @@ const argv = yargs
         type: 'number',
         default: 3000
     })
+    .option('store', {
+        describe: 'The location to store the authentication tokens',
+        type: 'string',
+        default: './'
+    })
     .argv;
 
 const options = {};
@@ -63,5 +70,10 @@ if (argv.config) {
 
 options.baseUrl = 'http://'+argv.host+':'+argv.port;
 options.verbose = argv.verbose;
+
+// The location to store the authentication tokens
+// Default at "./"
+// This value is used in config.js for each application
+options.storeLocation = path.resolve(argv.store);
 
 require('..')(options);

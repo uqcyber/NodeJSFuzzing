@@ -58,3 +58,6 @@ The above command will add the user `admin` (first parameter) to the group `admi
 - The `docker-compose.yml` files use the already built Docker images available in this repo's registry. If you want to build the images on your own, the detailed instructions are available in [app_docker](app_docker/). 
 - All the applications are run with code coverage enabled by default. To disable code coverage, in the `docker-compose.yml` file, remove the `--enable-coverage` (and `--babel` for JuiceS-Shop) flag in the startup `command`.
 - The code coverage plugin uses [instanbul-middleware](https://github.com/gotwarlost/istanbul-middleware).
+
+## Authentication
+We also provide authenticating scripts for each applications. The output of these scripts will be a set of tokens that can be used in the scanning process of fuzzers. Please refer to [README](auth/README.md) for how to use the scripts.

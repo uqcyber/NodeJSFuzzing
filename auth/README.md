@@ -5,7 +5,10 @@
 **How to use the authentication script**
 
 ```
-[replayer]$ ./bin/replay --log <application_name>/loginSpec.js --config <application_name>/config.js --port <the_app_exposed_port>
+[replayer]$ ./bin/replay --log <application_name>/loginSpec.js --config <application_name>/config.js --port <the_app_exposed_port> --store <directory_to_store_tokens>
 ```
 
-You can modify config.js to specify the storing directory for the authentication token. 
+**Optional parameter**
+
+- `store` : Define the directory to store the auth tokens acquired (default set to `"./"`).
+- `port` : Define the exposed port of the application (default set to `3000`).

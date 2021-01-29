@@ -23,4 +23,4 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
     command: 
       # sh -c "sleep 5 && node ./node_modules/express-instrument-app/bin/run --projectDir . --logFile logFile --enable-coverage app.js"
-      sh -c "npm start"
+      sh -c "tini -- npm start"
