@@ -1,14 +1,13 @@
 # Copyright (c) 2020, 2021, Oracle and/or its affiliates.
 # Contributor: Trong Nhan Mai
 
-FROM node:12-slim
+FROM node:8-slim
 
 # grab tini for signal processing and zombie killing
 ENV TINI_VERSION 0.9.0
 RUN set -x \
 	&& apt-get update && apt-get install -y ca-certificates curl \
 		--no-install-recommends \
-	&& apt-get install -y gpg \
 	&& curl -fSL "https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini" -o /usr/local/bin/tini \
 	&& curl -fSL "https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini.asc" -o /usr/local/bin/tini.asc \
 	&& export GNUPGHOME="$(mktemp -d)" \
@@ -28,13 +27,6 @@ ENV ME_CONFIG_EDITORTHEME="default" \
     ME_CONFIG_MONGODB_ENABLE_ADMIN="true" \
     ME_CONFIG_BASICAUTH_USERNAME="" \
     ME_CONFIG_BASICAUTH_PASSWORD="" \
-    ME_CONFIG_BASICAUTH_USERNAME_FILE="" \
-    ME_CONFIG_BASICAUTH_PASSWORD_FILE="" \
-    ME_CONFIG_MONGODB_ADMINUSERNAME_FILE="" \
-    ME_CONFIG_MONGODB_ADMINPASSWORD_FILE="" \
-    ME_CONFIG_MONGODB_AUTH_USERNAME_FILE="" \
-    ME_CONFIG_MONGODB_AUTH_PASSWORD_FILE="" \
-    ME_CONFIG_MONGODB_CA_FILE="" \
     VCAP_APP_HOST="0.0.0.0"
 
 WORKDIR /app

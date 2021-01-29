@@ -1,0 +1,18 @@
+language: node_js
+
+services:
+  - docker
+
+jobs:
+  include:
+    - stage: "Building Application Docker Images"
+      name: "NodeGoat"
+      script: ./scripts/build-nodegoat.sh
+    - name: "Juice-Shop"
+      script: ./scripts/build-juice-shop.sh
+    - name: "Keystone"
+      script: ./scripts/build-keystone.sh
+    - name: "Mongo-express"
+      script: ./scripts/build-mongo-express.sh
+    - name: "Apostrophe"
+      script: ./scripts/build-apostrophe.sh
