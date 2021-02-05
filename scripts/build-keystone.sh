@@ -1,10 +1,10 @@
 #!/bin/bash
 
-TARGET="keystone"
-IMAGE_VER="v1"
-
 # Copyright (c) 2021, 2021, Oracle and/or its affiliates.
 # Contributor: Trong Nhan Mai
+
+TARGET="keystone"
+IMAGE_VER="v1"
 
 REPO="keystonejs/keystone-classic"
 REPO_VER="v4.0.0"

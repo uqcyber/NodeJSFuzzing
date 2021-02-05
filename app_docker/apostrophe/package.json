@@ -14,7 +14,7 @@
   "license": "MIT",
   "dependencies": {
     "express-instrument-app": "file:./express-instrument-app",
-    "apostrophe": "^2.103.1"
+    "apostrophe": "^2.47.0"
   },
   "nodemonConfig": {
     "verbose": true,

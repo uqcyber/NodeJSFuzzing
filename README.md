@@ -52,7 +52,7 @@ After the application has been started, we need to add an admin account. We do t
 ```
 $ docker-compose exec apostrophe node app apostrophe-users:add admin admin
 ``` 
-The above command will add the user `admin` (first parameter) to the group `admin` (second parameter). After that you need to enter the password for this account. Instructions taken from [here](https://github.com/apostrophecms/apostrophe-boilerplate#getting-started-with-docker).
+The above command will add the user `admin` (first parameter) to the group `admin` (second parameter). After that you need to enter the password for this account (please use `demo` for admin to suit the auth script). Instructions taken from [here](https://github.com/apostrophecms/apostrophe-boilerplate#getting-started-with-docker).
 
 ## Further instructions
 - The `docker-compose.yml` files use the already built Docker images available in this repo's registry. If you want to build the images on your own, the detailed instructions are available in [app_docker](app_docker/). 
