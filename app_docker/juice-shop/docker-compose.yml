@@ -6,7 +6,7 @@ version: "2.0"
 services:
   web:
     image: 
-      docker.pkg.github.com/skyworld42/nodejsfuzzing/juiceshop:v1
+      <image_name>:<version>
     ports:
       - "3000:3000"
     command:

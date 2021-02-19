@@ -13,7 +13,7 @@ services:
 
   web:
     image:
-      docker.pkg.github.com/skyworld42/nodejsfuzzing/mongo_express:v1
+      <image_name>:<version>
     restart: always
     ports:
       - 8081:8081
