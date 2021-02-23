@@ -1,0 +1,54 @@
+# Copyright (c) 2020, 2021, Oracle and/or its affiliates.
+# Contributor: Trong Nhan Mai
+
+## Enable output options
+# Uncomment the below line to get debug messages on console
+# plugins console
+plugins output text_file, html_file, csv_file, export_requests
+
+# Export identified vulnerabilities as a csv file
+plugins output config csv_file
+set output_file /root/w3af-shared/juice-shop/vulns.csv
+back
+
+# Export fuzzable requests found during crawl 
+plugins output config export_requests
+set output_file /root/w3af-shared/juice-shop/requests.b64
+back
+
+# Export HTML report
+plugins output config html_file
+set output_file /root/w3af-shared/juice-shop/report.html
+back
+
+# Export all messages to text-file
+plugins output config text_file
+set output_file /root/w3af-shared/juice-shop/report.txt
+back
+
+## Crawl plugin
+plugins crawl open_api, web_spider, robots_txt, sitemap_xml, urllist_txt, dir_file_bruter
+
+## Grep Plugins: for analyzing requests and responses
+plugins grep all !vulners_db, !analyze_cookies, !credit_cards, !oracle, !retirejs, !clamav, !password_profiling, !symfony, !websockets_links
+
+## Audit plugins
+plugins audit all
+
+## Set the setting for the targeted application
+# Headers modification for auth tokens
+http-settings set headers_file /root/w3af-shared/juice-shop/app_headers.txt
+
+# Excluded URLs
+misc-settings set blacklist_http_request http://172.19.0.2:3000/coverage, http://172.19.0.2:3000/coverage/download, http://172.19.0.2:3000/coverage/show
+misc-settings set blacklist_audit http://172.19.0.2:3000/coverage, http://172.19.0.2:3000/coverage/download, http://172.19.0.2:3000/coverage/show
+
+# Limit the crawl and scanning time
+misc-settings set max_discovery_time 10
+misc-settings set max_scan_time 15
+
+# Set the application url
+target set target http://172.19.0.2:3000/, http://172.19.0.2:3000/, http://172.19.0.2:3000/api, http://172.19.0.2:3000/api/Challenges/?name=Score%20Board, http://172.19.0.2:3000/api/Recycles/, http://172.19.0.2:3000/assets, http://172.19.0.2:3000/assets/, http://172.19.0.2:3000/assets/i18n, http://172.19.0.2:3000/assets/i18n/, http://172.19.0.2:3000/assets/i18n/en.json, http://172.19.0.2:3000/assets/public, http://172.19.0.2:3000/assets/public/, http://172.19.0.2:3000/assets/public/favicon_js.ico, http://172.19.0.2:3000/assets/public/images, http://172.19.0.2:3000/assets/public/images/, http://172.19.0.2:3000/assets/public/images/JuiceShop_Logo.png, http://172.19.0.2:3000/assets/public/images/products, http://172.19.0.2:3000/assets/public/images/products/, http://172.19.0.2:3000/assets/public/images/products/apple_juice.jpg, http://172.19.0.2:3000/assets/public/images/products/apple_pressings.jpg, http://172.19.0.2:3000/assets/public/images/products/artwork.jpg, http://172.19.0.2:3000/assets/public/images/products/banana_juice.jpg, http://172.19.0.2:3000/assets/public/images/products/carrot_juice.jpeg, http://172.19.0.2:3000/assets/public/images/products/eggfruit_juice.jpg, http://172.19.0.2:3000/assets/public/images/products/fruit_press.jpg, http://172.19.0.2:3000/assets/public/images/products/green_smoothie.jpg, http://172.19.0.2:3000/assets/public/images/products/lemon_juice.jpg, http://172.19.0.2:3000/assets/public/images/products/melon_bike.jpeg, http://172.19.0.2:3000/favicon.ico, http://172.19.0.2:3000/ftp, http://172.19.0.2:3000/ftp/acquisitions.md, http://172.19.0.2:3000/ftp/coupons_2013.md.bak, http://172.19.0.2:3000/ftp/eastere.gg, http://172.19.0.2:3000/ftp/incident-support.kdbx, http://172.19.0.2:3000/ftp/legal.md, http://172.19.0.2:3000/ftp/package.json.bak, http://172.19.0.2:3000/ftp/quarantine, http://172.19.0.2:3000/ftp/quarantine/juicy_malware_linux_64.url, http://172.19.0.2:3000/ftp/quarantine/juicy_malware_macos_64.url, http://172.19.0.2:3000/ftp/quarantine/juicy_malware_windows_64.exe.url, http://172.19.0.2:3000/ftp/suspicious_errors.yml, http://172.19.0.2:3000/gb.svg, http://172.19.0.2:3000/main.js, http://172.19.0.2:3000/null, http://172.19.0.2:3000/polyfills.js, http://172.19.0.2:3000/redirect?to=https://github.com/bkimminich/juice-shop, http://172.19.0.2:3000/rest, http://172.19.0.2:3000/rest/admin, http://172.19.0.2:3000/rest/admin/application-configuration, http://172.19.0.2:3000/rest/admin/application-version, http://172.19.0.2:3000/rest/captcha/, http://172.19.0.2:3000/rest/continue-code, http://172.19.0.2:3000/rest/product, http://172.19.0.2:3000/rest/product/1, http://172.19.0.2:3000/rest/product/1/reviews, http://172.19.0.2:3000/rest/product/23, http://172.19.0.2:3000/rest/product/23/reviews, http://172.19.0.2:3000/rest/product/search?q=, http://172.19.0.2:3000/rest/user, http://172.19.0.2:3000/rest/user/whoami, http://172.19.0.2:3000/robots.txt, http://172.19.0.2:3000/runtime.js, http://172.19.0.2:3000/sitemap.xml, http://172.19.0.2:3000/socket.io/?EIO=3&transport=polling&t=NRVXewb&sid=L-nBVCHT-BT5XiUoAAAA, http://172.19.0.2:3000/socket.io/?EIO=3&transport=polling&t=NRVXeyh&sid=L-nBVCHT-BT5XiUoAAAA, http://172.19.0.2:3000/socket.io/?EIO=3&transport=polling&t=NRVknhr, http://172.19.0.2:3000/socket.io/? EIO=3&transport=polling&t=NRVknrU&sid=Vzno-26XJiqVuIqyAAAY, http://172.19.0.2:3000/socket.io/?EIO=3&transport=websocket&sid=L-nBVCHT-BT5XiUoAAAA, http://172.19.0.2:3000/styles.css, http://172.19.0.2:3000/us.svg, http://172.19.0.2:3000/vendor.js
+
+start
+exit

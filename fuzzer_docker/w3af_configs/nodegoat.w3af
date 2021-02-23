@@ -1,0 +1,54 @@
+# Copyright (c) 2020, 2021, Oracle and/or its affiliates.
+# Contributor: Trong Nhan Mai
+
+## Enable output options
+# Uncomment the below line to get debug messages on console
+# plugins console
+plugins output text_file, html_file, csv_file, export_requests
+
+# Export identified vulnerabilities as a csv file
+plugins output config csv_file
+set output_file /root/w3af-shared/nodegoat/vulns.csv
+back
+
+# Export fuzzable requests found during crawl 
+plugins output config export_requests
+set output_file /root/w3af-shared/nodegoat/requests.b64
+back
+
+# Export HTML report
+plugins output config html_file
+set output_file /root/w3af-shared/nodegoat/report.html
+back
+
+# Export all messages to text-file
+plugins output config text_file
+set output_file /root/w3af-shared/nodegoat/report.txt
+back
+
+## Crawl plugin
+plugins crawl open_api, web_spider, robots_txt, sitemap_xml, urllist_txt, dir_file_bruter
+
+## Grep Plugins: for analyzing requests and responses
+plugins grep all !vulners_db, !analyze_cookies, !credit_cards, !oracle, !retirejs, !clamav, !password_profiling, !symfony, !websockets_links
+
+## Audit plugins
+plugins audit all
+
+## Set the setting for the targeted application
+# Headers modification for auth tokens
+http-settings set headers_file /root/w3af-shared/nodegoat/app_headers.txt
+
+# Excluded URLs
+misc-settings set blacklist_http_request http://172.20.0.3:4000/logout, http://172.20.0.3:4000/coverage, http://172.20.0.3:4000/coverage/download, http://172.20.0.3:4000/coverage/show
+misc-settings set blacklist_audit http://172.20.0.3:4000/logout, http://172.20.0.3:4000/coverage, http://172.20.0.3:4000/coverage/download, http://172.20.0.3:4000/coverage/show
+
+# Limit the crawl and scanning time
+misc-settings set max_discovery_time 10
+misc-settings set max_scan_time 15
+
+# Set the application url
+target set target http://172.20.0.3:4000/
+
+start
+exit

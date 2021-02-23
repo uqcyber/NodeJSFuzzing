@@ -1,0 +1,54 @@
+# Copyright (c) 2020, 2021, Oracle and/or its affiliates.
+# Contributor: Trong Nhan Mai
+
+## Enable output options
+# Uncomment the below line to get debug messages on console
+# plugins console
+plugins output text_file, html_file, csv_file, export_requests
+
+# Export identified vulnerabilities as a csv file
+plugins output config csv_file
+set output_file /root/w3af-shared/keystone/vulns.csv
+back
+
+# Export fuzzable requests found during crawl 
+plugins output config export_requests
+set output_file /root/w3af-shared/keystone/requests.b64
+back
+
+# Export HTML report
+plugins output config html_file
+set output_file /root/w3af-shared/keystone/report.html
+back
+
+# Export all messages to text-file
+plugins output config text_file
+set output_file /root/w3af-shared/keystone/report.txt
+back
+
+## Crawl plugin
+plugins crawl open_api, web_spider, robots_txt, sitemap_xml, urllist_txt
+
+## Grep Plugins: for analyzing requests and responses
+plugins grep all !vulners_db, !analyze_cookies, !credit_cards, !oracle, !retirejs, !clamav, !password_profiling, !symfony, !websockets_links
+
+## Audit plugins
+plugins audit all
+
+## Set the setting for the targeted application
+# Headers modification for auth tokens
+http-settings set headers_file /root/w3af-shared/keystone/app_headers.txt
+
+# Excluded URLs
+misc-settings set blacklist_http_request http://172.29.0.4:3000/coverage, http://172.29.0.4:3000/coverage/download, http://172.29.0.4:3000/coverage/show, http://172.29.0.4:3000/keystone/signout
+misc-settings set blacklist_audit http://172.29.0.4:3000/coverage, http://172.29.0.4:3000/coverage/download, http://172.29.0.4:3000/coverage/show, http://172.29.0.4:3000/keystone/signout
+
+# Limit the crawl and scanning time
+misc-settings set max_discovery_time 10
+misc-settings set max_scan_time 15
+
+# Set the application url
+target set target "http://172.29.0.4:3000/keystone", "http://172.29.0.4:3000/keystone/api/users?fields=name%2Cemail%2CisAdmin%2CisMember&limit=100&sort=name&expandRelationshipFields=true", "http://172.29.0.4:3000/keystone/api/booleans?fields=name%2CfieldA%2CfieldB&limit=100&sort=name&expandRelationshipFields=true", "http://172.29.0.4:3000/keystone/api/date-field-maps?fields=datefield&limit=100&sort=datefield&expandRelationshipFields=true", "http://172.29.0.4:3000/keystone/users", "http://172.29.0.4:3000/keystone/booleans", "http://172.29.0.4:3000/keystone/date-field-maps"
+
+start
+exit
