@@ -8,14 +8,13 @@ services:
   mongo:
     image: mongo
     user: mongodb
-    restart: always
     expose:
       - 27017
 
   web:
     image:
       <image_name>:<version>
-    restart: always
+    restart: on-failure
     depends_on:
       - mongo
     environment:

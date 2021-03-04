@@ -7,6 +7,7 @@ services:
   web:
     image: 
       <image_name>:<version>
+    restart: on-failure
     environment:
       NODE_ENV:
       MONGODB_URI: mongodb://mongo:27017/nodegoat

@@ -5,7 +5,7 @@ version: "2"
 services:
   apostrophe:
     container_name: apostrophe
-    restart: always
+    restart: on-failure
     image:
       <image_name>:<version>
     ports:
@@ -25,7 +25,6 @@ services:
   mongo:
     container_name: mongo
     image: mongo
-    restart: always
     volumes:
       - ./data/db:/data/db:z
     expose:

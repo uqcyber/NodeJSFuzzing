@@ -7,14 +7,13 @@ services:
 
   mongo:
     image: mongo:3
-    restart: always
     expose:
       - "27017"
 
   web:
     image:
       <image_name>:<version>
-    restart: always
+    restart: on-failure
     ports:
       - 8081:8081
     depends_on:
