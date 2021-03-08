@@ -11,6 +11,11 @@ A small project to compare the performance of various of fuzzers against 5 Node.
 - [Mongo-express v0.51.0](https://github.com/mongo-express/mongo-express/tree/v0.51.0) - [license](https://github.com/mongo-express/mongo-express/tree/v0.51.0#license)
 - [Apostrophe boilerplate](https://github.com/apostrophecms/apostrophe-boilerplate) - [license](https://github.com/apostrophecms/apostrophe-boilerplate/blob/main/LICENSE)
 
+The list of fuzzers involved:
+- [OWASP ZAP v2.9.0](https://github.com/zaproxy/zaproxy/tree/v2.9.0) - [license](https://github.com/zaproxy/zaproxy/blob/v2.9.0/LICENSE)
+- [Arachni v1.5.1 & WebUI v0.5.12](https://github.com/Arachni/arachni/tree/v1.5.1) - [license](https://github.com/Arachni/arachni/blob/v1.5.1/LICENSE.md)
+- [w3af](https://github.com/andresriancho/w3af) - GPLv2.0
+
 ## Presequisites
 The docker images are built and tested with:
 - Docker version 18.09.1-ol, build b2a1f2a
@@ -27,7 +32,7 @@ The infrastructure to exercise 5 Node.js applications has three components:
 - Fuzzer Docker images
 - Docker & docker-compose
 
-With the help of `docker-compose.yml`, the infrastructure is started which allows fuzzer container to interact with our applications. The user can access both containers from the host machine.
+With the help of `docker-compose.yml`, the infrastructure is started which allows fuzzer container to interact with our applications. The user can access those containers from the host machine.
 
 ## Building and pushing docker images to Github registry
 First create a personal token on github. Make sure that the token has enough privileges (i.e read,write:packages). Then run docker login.
@@ -67,8 +72,9 @@ The above command will add the user `admin` (first parameter) to the group `admi
 
 ## Further instructions
 - Before using `docker-compose.yml` please provide it with the necesary image, or build your own following the instructions in [app_docker](app_docker/). 
-- All the applications are run with code coverage enabled by default. To disable code coverage, in the `docker-compose.yml` file, remove the `--enable-coverage` (and `--babel` for JuiceS-Shop) flag in the startup `command`.
+- All the applications are run with code coverage enabled by default. To disable code coverage, in the `docker-compose.yml` file, remove the `--enable-coverage` (and `--babel` for Juice-Shop) flag in the startup `command`.
 - The code coverage plugin uses a modified version of [instanbul-middleware](https://github.com/skyworld42/istanbul-middleware). The original repo is located [here](https://github.com/gotwarlost/istanbul-middleware) - [license](https://github.com/gotwarlost/istanbul-middleware/blob/master/LICENSE). 
+- The instructions on how to work with fuzzers and get them to interact with our applications can be found in [fuzzer_docker](fuzzer_docker/)
 
 ## Authentication
 We also provide authenticating scripts for each applications. The output of these scripts will be a set of tokens that can be used in the scanning process of fuzzers. Please refer to [README](auth/README.md) for how to use the scripts.

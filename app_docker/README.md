@@ -1,8 +1,11 @@
+#### Copyright (c) 2020, 2021, Oracle and/or its affiliates.
+#### Contributor: Trong Nhan Mai
+---
 # Build Application Docker images
 This guide shows how the application's Docker image can be built from the source code to run with docker-compose. The necessary files for each application can be found here. These files will replace the original files in the cloned repo.
 
 ## Step 1:
-Clone the source repo of the desired application.
+Clone the source repo of the desired application. Please use the same version we mention in [README](./README.md) or else the building process might not be successful.
 
 ## Step 2:
 Put the `express-instrument-app` folder inside the root directory of the cloned repo. This folder contains the code coverage plugin to be integrated with the application. 
