@@ -150,7 +150,7 @@ Note: depends on the application that the header name will either be  `Cookie` (
 ## Arachni (v1.5.1 with web UI v0.5.12)
 To startup the Arachni Docker image (already available in Docker Hub), run:
 ```
-docker run --net <app_network> k -d -p 222:22 -p 7331:7331 -p 9292:9292 --name arachni arachni/arachni:1.5.1
+docker run --net <app_network> -d -p 222:22 -p 7331:7331 -p 9292:9292 --name arachni arachni/arachni:1.5.1
 ```
 
 The Web UI can be accessed from your browser at http://localhost:9292 
@@ -191,16 +191,24 @@ It will build an image from source with the tag `andresriancho/w3af:source`
 
 The `source` version of w3af used in this project is at commit [cd22e52](https://github.com/andresriancho/w3af/commit/cd22e5252243a87aaa6d0ddea47cf58dacfe00a9).
 
-The original workflow of W3AF Docker image is to start it up and use SSH to connect to the running Docker container. However, the scripts to run this workflow in the repo does not work for me. Therefore, I decided to use `docker exec`
+The original workflow of W3AF Docker image is to start it up and use SSH to connect to the running Docker container. However, the scripts to run this workflow in the repo does not work for me. Therefore, I decided to use `docker exec`.
 
 This command will start up the W3AF container:
 ```
-$ docker run --net <app_network> --name <container_name> -it -v ~/.w3af:/root/.w3af:z -v ~/w3af-shared:/root/w3af-shared:z -p 44444:44444 andresriancho/w3af:<source | latest> 
+$ docker run --net <app_network> --name <container_name> -it -v ~/.w3af:/root/.w3af:z -v ~/w3af-shared:/root/w3af-shared:z -p 44444:44444 <w3af_image>
 ```
 
-The command will startup 2 shared volumes `w3af-shared` and `.w3af`. Instructions on how Docker volumes work can be found here [here](https://docs.docker.com/storage/volumes/#start-a-container-with-a-volume).
+For `<w3af_image`, you can use:
+- `andresriancho/w3af:latest` to use the latest release version on Docker Hub (which is quite out-of-date).
+- `andresriancho/w3af:source` to use the image that you build using the instructions above.  
 
-When the container is running, one can start up the w3af_console by using:
+The startup command will start up 2 shared volumes (you can modify to fit your machine):
+- `-v ~/.w3af:/root/.w3af:z`: `~/.w3af` in the host machine will be bind to `/root/.w3af` in the `w3af` container.
+- `-v ~/w3af-shared:/root/w3af=shared:z`: `~/w3af-shared` in the host machine will be bind to `/root/w3af-shared` in the `w3af` container.
+
+Instructions on how Docker volumes work can be found here [here](https://docs.docker.com/storage/volumes/#start-a-container-with-a-volume). 
+
+When the container is running, one can start up the `w3af_console` by using:
 ```
 $ docker exec -it <container_name> python /home/w3af/w3af/w3af_console --no-update
 ```
@@ -223,4 +231,8 @@ Or this command from `bash` within the container:
 $ /home/w3af/w3af/w3af_console -s <location_to_script_from_w3af_container> --no-update
 ```
 
-**Important**: You must update the URLs in those scripts to suit your environment setup (you can check the app container's IP by running `docker network inspect <app_network>`). Please don't run those scripts directly.
+**Important**:
+- With those scripts, results will be generated in `/root/w3af-shared/<app_name>` of the `w3af` container, which you can access in `w3af-shared` of your host machine. 
+- The scripts also utilize a `app_header.txt` to modify each HTTP request's header. The file will "`<Header_name>: <vakue>`" which you will use to include the authentication token for each application. According to the scripts, `w3af_console` will access `app_headers.txt` at `/root/w3af-shared/<app_name/app_headers.txt` in the w3af container (you will have to put `app_header.txt` in `w3af-shared` of your host machine).
+- You must update the URLs in those scripts to suit your environment setup (you can check the app container's IP by running `docker network inspect <app_network>`). 
+- You can also change the paths values in those w3af scripts to fit your use case.
