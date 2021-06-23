@@ -15,6 +15,7 @@ RUN echo "disable-ipv6" >> ~/.gnupg/dirmngr.conf \
 	&& ( gpg --keyserver ha.pool.sks-keyservers.net --recv-keys 6380DC428747F6C393FEACA59A84159D7001A4E5 \
 		|| gpg --keyserver keyserver.ubuntu.com --recv-keys 6380DC428747F6C393FEACA59A84159D7001A4E5) \
 	&& gpg --batch --verify /usr/local/bin/tini.asc /usr/local/bin/tini \
+	&& gpgconf --kill gpg-agent \
 	&& rm -r "$GNUPGHOME" /usr/local/bin/tini.asc \
 	&& chmod +x /usr/local/bin/tini \
 	&& tini -h \
