@@ -1,19 +1,40 @@
 name: Docker images CI
-on: [push]
+on: [pull_request]
 
 jobs:
-  build:
+  build-nodegoat:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Build NodeGoat Docker image
       run: ./scripts/build-nodegoat.sh
+  
+  build-juice-shop:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
     - name: Build Juice-shop Docker image
       run: ./scripts/build-juice-shop.sh
+
+  build-keystone:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
     - name: Build Keystone Docker image
       run: ./scripts/build-keystone.sh
+
+  build-apostrophe:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
     - name: Build Apostrophe-boilerplate Docker image
       run: ./scripts/build-apostrophe.sh
+
+  build-mongo-express:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
     - name: Build Mongo-express Docker image
       run: ./scripts/build-mongo-express.sh
+
 
